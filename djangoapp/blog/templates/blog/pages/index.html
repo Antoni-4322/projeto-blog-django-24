@@ -1,5 +1,24 @@
 {% extends "blog/partials/base.html" %}
 
 {% block content %}
-<h1>ola mundo</h1>
+
+<main class="main-content section-wrapper">
+    <div class="section-content-wide">
+      <div class="section-gap">
+
+        {% if page_obj %}
+          <div class="card-grid">
+            {% for post in page_obj %}
+              {% include 'blog/partials/_post-card.html' with i=forloop.counter0 %}
+            {% endfor %}
+          </div>
+
+        {% else %}
+          <div class="not-found center">nada encontrado</div>
+          <p>não econtrei nada nesse link, por favor, clique em outro link do nosso blog ou vá para home <a href="{% url "blog:index" %}">HOME</a> </p>
+        {% endif %}
+      </div>
+    </div>
+  </main>
+
 {% endblock content %}
