@@ -90,6 +90,12 @@ class Page(models.Model):
             self.slug = slugify_new(self.title, 4)
         return super().save(*args, **kwargs)
     
+    def get_absolute_url(self):
+        if not self.is_published:
+            return reverse('blog:index')
+        return reverse('blog:page', args=(self.slug,))
+
+    
 class PostManager(models.Manager):
     def get_published(self):
         return self.filter(is_published=True).order_by('-pk')
